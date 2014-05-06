@@ -81,7 +81,7 @@ class Xap {
 	 * @param integer $user_id
 	 */
 	public function maybe_update_user_profile( $user ) {
-		if ( !isset( $_POST['app_name'] ) || !current_user_can( 'edit_user', $user->ID ) ) {
+		if ( !isset( $_POST['app_name'] ) || empty( $_POST['app_name'] ) || !current_user_can( 'edit_user', $user->ID ) ) {
 			return false;
 		}
 
