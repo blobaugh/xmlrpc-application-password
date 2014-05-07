@@ -89,7 +89,7 @@ class Xap {
 		$password = wp_generate_password( 16, false );
 		$password = chunk_split( $password, 4, ' ' );
 		$password = preg_replace( '/[^a-z\d]/i', '', $password );
-echo "Generated password: $password";
+		
 		// Setup data to be saved regarding the password
 		$data = array( 
 			'password'		=> $password,
@@ -100,9 +100,9 @@ echo "Generated password: $password";
 
 		$added = add_user_meta( $user->ID, XAP_USER_META_KEY, $data );
 		if( !is_wp_error( $added ) ) {
-			add_action( 'admin_notices', array( $this, 'notice_success' ) );
+			return $password;
 		} else {
-			add_action( 'admin_notices', array( $this, 'notice_fail' ) );
+			return false;
 		}
 	}
 
@@ -115,12 +115,19 @@ echo "Generated password: $password";
 	 */
 	public function show_user_profile( $user ) {
 
-		$this->maybe_update_user_profile( $user );
+		$updated = $this->maybe_update_user_profile( $user );
 
 		require_once( 'class.xap-profile-list-table.php' );
 		$list_table = new Xap_Profile_List_Table();
-		echo '<div class="wrap"><h2>' . __( 'Application Passwords' ) . '</h2>';
-		echo '<p>To create a new password type the name of the application in the box below.</p>';
+		echo '<div id="xap-profile" class="wrap"><h2>' . __( 'Application Passwords' ) . '</h2>';
+
+		if( $updated ) {
+			echo "<div class='updated'>";
+			echo '<p>' . __( 'Application password successfully created. Please note the password as it will <b>not be shown again</b>.' ) . '</p>';
+			echo '<p>' . __( 'New Application Password:' ) . ' ' . $updated . '</p>';
+			echo "</div>";
+		}
+		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.i' ) . '</p>';
 		echo '<form method="post">';
 		echo '<input type="text" name="app_name" />';
 		submit_button( 'Create Password', 'primary', 'create_password', false);
@@ -129,6 +136,14 @@ echo "Generated password: $password";
 		$list_table->prepare_items();
 		$list_table->display();
 		echo '</form></div>';
+
+		?>
+		<script>
+		jQuery( document ).ready(function() {
+		//	jQuery( '#xap-profile' ).insertAfter( '#profile-page' );
+		});
+		</script>
+		<?php
 	}
 
 	/**
