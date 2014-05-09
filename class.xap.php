@@ -89,10 +89,11 @@ class Xap {
 		$password = wp_generate_password( 16, false );
 		$password = chunk_split( $password, 4, ' ' );
 		$password = preg_replace( '/[^a-z\d]/i', '', $password );
-		
+	
+		$hashed_password = sha1( $password );
 		// Setup data to be saved regarding the password
 		$data = array( 
-			'password'		=> $password,
+			'password'		=> $hashed_password,
 			'application'	=> esc_attr( $_POST['app_name'] ),
 			'created'		=> time(),
 			'last_used'		=> -1
