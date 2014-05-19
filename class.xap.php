@@ -54,6 +54,9 @@ class Xap {
 
 		foreach( $appass AS $app ) {
 			if( wp_check_password( $password, $app['password'], $user->ID ) ) {
+				$orig_app = $app;
+				$app['last_used'] = time();
+				update_user_meta( $user->ID, XAP_USER_META_KEY, $app, $orig_app );
 				return $user;
 			}
 		}
