@@ -127,13 +127,13 @@ class Xap {
 
 		if( $updated ) {
 			echo "<div class='updated'>";
-			echo '<p>' . __( 'Application password successfully created. Please note the password as it will <b>not be shown again</b>.' ) . '</p>';
+			echo '<p><strong>' . __( 'Please note the password as it will <b>not be shown again</b>.' ) . '</strong></p>';
 			echo '<p>' . __( 'New Application Password:' ) . ' ' . $updated . '</p>';
 			echo "</div>";
 		}
-		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.i' ) . '</p>';
+		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.' ) . '</p>';
 		echo '<form method="post">';
-		echo '<input type="text" name="app_name" />';
+		echo 'Application Name: <input type="text" name="app_name" />';
 		submit_button( 'Create Password', 'primary', 'create_password', false);
 		echo '</form>';
 		echo '<form method="post">';
