@@ -53,7 +53,7 @@ class Xap {
 		$appass = get_user_meta( $user->ID, XAP_USER_META_KEY );
 
 		foreach( $appass AS $app ) {
-			if( sha1( $password ) == $app['password'] ) {
+			if( wp_check_password( $password, $app['password'], $user->ID ) ) {
 				return $user;
 			}
 		}
@@ -90,7 +90,7 @@ class Xap {
 		$password = chunk_split( $password, 4, ' ' );
 		$password = preg_replace( '/[^a-z\d]/i', '', $password );
 	
-		$hashed_password = sha1( $password );
+		$hashed_password = wp_hash_password( $password );
 		// Setup data to be saved regarding the password
 		$data = array( 
 			'password'		=> $hashed_password,
