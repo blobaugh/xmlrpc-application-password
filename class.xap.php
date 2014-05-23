@@ -88,6 +88,11 @@ class Xap {
 			return false;
 		}
 
+		// If the 'Create Password' button wasn't pressed, don't do anything.
+		if ( ! isset( $_POST['create_password'] ) ) {
+			return;
+		}
+
 		// Generate a new password
 		$password = wp_generate_password( 16, false );
 		$password = chunk_split( $password, 4, ' ' );
