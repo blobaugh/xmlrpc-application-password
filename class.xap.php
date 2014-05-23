@@ -19,7 +19,7 @@ class Xap {
 	private function __construct() {
 
 		// If we are working with an xmlrpc client lets take over authentication
-		if( defined('XMLRPC_REQUEST') && XMLRPC_REQUEST ) {
+		if( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
 			add_filter( 'authenticate', array( $this, 'intercept_xmlrpc_login' ), 10, 3 );
 		}
 		
@@ -34,7 +34,7 @@ class Xap {
 	 * @return Xap
 	 */
 	public static function get_instance() {
-		if( !is_null( self::$instance ) ) {
+		if ( ! is_null( self::$instance ) ) {
 			return self::$instance;
 		}
 
@@ -45,15 +45,15 @@ class Xap {
 
 	public function intercept_xmlrpc_login( $input_user, $username, $password ) {
 		// Make sure a username and password are present for us to work with
-		if($username == '' || $password == '') return;
+		if ( $username == '' || $password == '' ) return;
 
 		// Lets see if the username matches an existing user
 		$user     = get_user_by( 'login',  $username );
 		$appass   = get_user_meta( $user->ID, XAP_USER_META_KEY );
 		$password = preg_replace( '/[^a-z\d]/i', '', $password );
 
-		foreach( $appass AS $app ) {
-			if( wp_check_password( $password, $app['password'], $user->ID ) ) {
+		foreach ( $appass AS $app ) {
+			if ( wp_check_password( $password, $app['password'], $user->ID ) ) {
 				$orig_app = $app;
 				$app['last_used'] = time();
 				update_user_meta( $user->ID, XAP_USER_META_KEY, $app, $orig_app );
@@ -108,7 +108,7 @@ class Xap {
 		);
 
 		$added = add_user_meta( $user->ID, XAP_USER_META_KEY, $data );
-		if( !is_wp_error( $added ) ) {
+		if( ! is_wp_error( $added ) ) {
 			return $password;
 		} else {
 			return false;
@@ -130,16 +130,16 @@ class Xap {
 		$list_table = new Xap_Profile_List_Table();
 		echo '<div id="xap-profile" class="wrap"><h2>' . __( 'Application Passwords' ) . '</h2>';
 
-		if( $updated ) {
-			echo "<div class='updated'>";
+		if ( $updated ) {
+			echo '<div class="updated">';
 			echo '<p><strong>' . __( 'Please note the password as it will <b>not be shown again</b>.' ) . '</strong></p>';
 			echo '<p>' . __( 'New Application Password:' ) . ' <tt>' . chunk_split( $updated, 4, ' ' ) . '</tt></p>';
-			echo "</div>";
+			echo '</div>';
 		}
 		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.' ) . '</p>';
 		echo '<form method="post">';
 		echo 'Application Name: <input type="text" name="app_name" />';
-		submit_button( 'Create Password', 'primary', 'create_password', false);
+		submit_button( 'Create Password', 'primary', 'create_password', false );
 		echo '</form>';
 		echo '<form method="post">';
 		$list_table->prepare_items();
@@ -165,8 +165,8 @@ class Xap {
 
 		$appass = get_user_meta( $user_id, XAP_USER_META_KEY );
 
-		foreach( $appass AS $app ) {
-			if( $password == md5( $app['password'] ) ) {
+		foreach ( $appass as $app ) {
+			if ( $password == md5( $app['password'] ) ) {
 				delete_user_meta( $user_id, XAP_USER_META_KEY, $app );
 				break;
 			}
