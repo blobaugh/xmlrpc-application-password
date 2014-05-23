@@ -48,9 +48,9 @@ class Xap {
 		if($username == '' || $password == '') return;
 
 		// Lets see if the username matches an existing user
-		$user = get_user_by( 'login',  $username );
-	
-		$appass = get_user_meta( $user->ID, XAP_USER_META_KEY );
+		$user     = get_user_by( 'login',  $username );
+		$appass   = get_user_meta( $user->ID, XAP_USER_META_KEY );
+		$password = preg_replace( '/[^a-z\d]/i', '', $password );
 
 		foreach( $appass AS $app ) {
 			if( wp_check_password( $password, $app['password'], $user->ID ) ) {
