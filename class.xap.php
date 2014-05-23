@@ -45,7 +45,9 @@ class Xap {
 
 	public function intercept_xmlrpc_login( $input_user, $username, $password ) {
 		// Make sure a username and password are present for us to work with
-		if ( $username == '' || $password == '' ) return;
+		if ( $username == '' || $password == '' ) {
+			return;
+		}
 
 		// Lets see if the username matches an existing user
 		$user     = get_user_by( 'login',  $username );
