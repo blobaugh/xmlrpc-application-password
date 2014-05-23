@@ -43,7 +43,7 @@ class Xap {
 		return self::$instance;
 	}
 
-	public function intercept_xmlrpc_login( $user, $username, $password ) {
+	public function intercept_xmlrpc_login( $input_user, $username, $password ) {
 		// Make sure a username and password are present for us to work with
 		if($username == '' || $password == '') return;
 
@@ -62,7 +62,7 @@ class Xap {
 		}
 
 		// No user found!
-		return null;
+		return $input_user;
 	}
 
 	public function notice_success() {
