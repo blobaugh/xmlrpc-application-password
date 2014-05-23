@@ -90,14 +90,12 @@ class Xap {
 
 		// Generate a new password
 		$password = wp_generate_password( 16, false );
-		$password = chunk_split( $password, 4, ' ' );
-		$password = preg_replace( '/[^a-z\d]/i', '', $password );
 	
 		$hashed_password = wp_hash_password( $password );
 		// Setup data to be saved regarding the password
 		$data = array( 
 			'password'		=> $hashed_password,
-			'application'	=> esc_attr( $_POST['app_name'] ),
+			'application'	=> $_POST['app_name'],
 			'created'		=> time(),
 			'last_used'		=> -1
 		);
@@ -133,7 +131,7 @@ class Xap {
 		}
 		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.' ) . '</p>';
 		echo '<form method="post">';
-		echo 'Application Name: <input type="text" name="app_name" />';
+		echo __( 'Application Name' ) . ': <input type="text" name="app_name" />';
 		submit_button( 'Create Password', 'primary', 'create_password', false);
 		echo '</form>';
 		echo '<form method="post">';
@@ -161,7 +159,7 @@ class Xap {
 		$appass = get_user_meta( $user_id, XAP_USER_META_KEY );
 
 		foreach( $appass AS $app ) {
-			if( $password == md5( $app['password'] ) ) {
+			if( $password == md5( $app['application'] . '|' . $app['created'] ) ) {
 				delete_user_meta( $user_id, XAP_USER_META_KEY, $app );
 				break;
 			}

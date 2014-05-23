@@ -87,7 +87,7 @@ class XAP_Profile_List_Table extends WP_List_Table {
 	 */
 	public function column_cb($item) {
         	return sprintf(
-            		'<input type="checkbox" name="bulk[]" value="%s" />', md5( $item['password'] ) 
+            		'<input type="checkbox" name="bulk[]" value="%s" />', md5( $item['application'] . '|' . $item['created'] ) 
         	);    
     }
 
