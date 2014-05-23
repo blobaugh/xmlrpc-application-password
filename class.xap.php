@@ -68,7 +68,7 @@ class Xap {
 	public function notice_success() {
 		echo "<div class='updated'>";
 		echo '<p>' . __( 'Application password successfully created. Please note the password as it will <b>not be shown again</b>.' ) . '</p>';
-		echo '<p>' . __( 'New Application Password:' ) . ' ' . $this->temp_password . '</p>';
+		echo '<p>' . __( 'New Application Password:' ) . ' <tt>' . chunk_split( $this->temp_password, 4, ' ' ) . '</tt></p>';
 		echo "</div>";
 	}
 
@@ -133,7 +133,7 @@ class Xap {
 		if( $updated ) {
 			echo "<div class='updated'>";
 			echo '<p><strong>' . __( 'Please note the password as it will <b>not be shown again</b>.' ) . '</strong></p>';
-			echo '<p>' . __( 'New Application Password:' ) . ' ' . $updated . '</p>';
+			echo '<p>' . __( 'New Application Password:' ) . ' <tt>' . chunk_split( $updated, 4, ' ' ) . '</tt></p>';
 			echo "</div>";
 		}
 		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.' ) . '</p>';
