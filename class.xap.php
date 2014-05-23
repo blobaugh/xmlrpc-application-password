@@ -138,13 +138,8 @@ class Xap {
 		}
 		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.' ) . '</p>';
 		echo '<form method="post">';
-<<<<<<< HEAD
 		echo __( 'Application Name' ) . ': <input type="text" name="app_name" />';
 		submit_button( 'Create Password', 'primary', 'create_password', false);
-=======
-		echo 'Application Name: <input type="text" name="app_name" />';
-		submit_button( 'Create Password', 'primary', 'create_password', false );
->>>>>>> b2fa3c67ee1dfb28b2025ef6ff145729a3c18b3a
 		echo '</form>';
 		echo '<form method="post">';
 		$list_table->prepare_items();
@@ -170,13 +165,8 @@ class Xap {
 
 		$appass = get_user_meta( $user_id, XAP_USER_META_KEY );
 
-<<<<<<< HEAD
-		foreach( $appass AS $app ) {
-			if( $password == md5( $app['application'] . '|' . $app['created'] ) ) {
-=======
-		foreach ( $appass as $app ) {
-			if ( $password == md5( $app['password'] ) ) {
->>>>>>> b2fa3c67ee1dfb28b2025ef6ff145729a3c18b3a
+		foreach ( $appass AS $app ) {
+			if ( $password == md5( $app['application'] . '|' . $app['created'] ) ) {
 				delete_user_meta( $user_id, XAP_USER_META_KEY, $app );
 				break;
 			}
