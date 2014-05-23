@@ -97,14 +97,13 @@ class Xap {
 		$password = wp_generate_password( 16, false );
 		$password = chunk_split( $password, 4, ' ' );
 		$password = preg_replace( '/[^a-z\d]/i', '', $password );
-	
-		$hashed_password = wp_hash_password( $password );
+
 		// Setup data to be saved regarding the password
 		$data = array( 
-			'password'		=> $hashed_password,
-			'application'	=> esc_attr( $_POST['app_name'] ),
-			'created'		=> time(),
-			'last_used'		=> -1
+			'password'    => wp_hash_password( $password ),
+			'application' => esc_attr( $_POST['app_name'] ),
+			'created'     => time(),
+			'last_used'   => -1,
 		);
 
 		$added = add_user_meta( $user->ID, XAP_USER_META_KEY, $data );
