@@ -19,7 +19,7 @@ class Xap {
 	private function __construct() {
 
 		// If we are working with an xmlrpc client lets take over authentication
-		if( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
+		if ( defined( 'XMLRPC_REQUEST' ) && XMLRPC_REQUEST ) {
 			add_filter( 'authenticate', array( $this, 'intercept_xmlrpc_login' ), 10, 3 );
 		}
 		
