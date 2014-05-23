@@ -139,7 +139,7 @@ class Xap {
 		echo '<p>' . __ ( 'To create a new password type the name of the application in the box below.' ) . '</p>';
 		echo '<form method="post">';
 		echo __( 'Application Name' ) . ': <input type="text" name="app_name" />';
-		submit_button( 'Create Password', 'primary', 'create_password', false);
+		submit_button( 'Create Password', 'primary', 'create_password', false );
 		echo '</form>';
 		echo '<form method="post">';
 		$list_table->prepare_items();
