@@ -75,7 +75,9 @@ class XAP_Profile_List_Table extends WP_List_Table {
 			return; // Thou shall not pass! There is nothing to do
 		}
 
-		// @todo: nonce?
+		if ( !isset( $_POST['_wpnonce'] ) || empty( $_POST['_wpnonce'] ) || !wp_verify_nonce( $_POST['_wpnonce'], 'bulk-' . $this->_args['plural'] ) ) {
+			return wp_die( 'Unable to submit this form, please refresh and try again.' );
+		}
 
 		$action = $this->current_action();
 		switch( $action ) {
