@@ -51,6 +51,8 @@ class Xap {
 
 		// Lets see if the username matches an existing user
 		$user     = get_user_by( 'login',  $username );
+		if (!$user) return $input_user;
+
 		$appass   = get_user_meta( $user->ID, XAP_USER_META_KEY );
 		$password = preg_replace( '/[^a-z\d]/i', '', $password );
 
